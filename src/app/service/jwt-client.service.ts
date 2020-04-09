@@ -6,7 +6,11 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 })
 export class JwtClientService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+
+
+
+  }
 
   public generateToken(request){
     //   const httpOptions: { headers; observe; } = {
@@ -24,10 +28,22 @@ export class JwtClientService {
 
   public welcome(token){
 
-    const headers = new HttpHeaders().set('Authorization', token)
-     // .set('Access-Control-Allow-Origin', '*')
-    ;
+    const headers = new HttpHeaders().set('Authorization', token);
     return this.http.get('http://localhost:8080/api/welcomepage', {headers, responseType: 'text'});
 
   }
+  public getDoctors(token){
+    const headers = new HttpHeaders().set('Authorization', token);
+    return this.http.get('http://localhost:8080/api/doctor/get/list', {headers, responseType: 'text'});
+  }
+  public getInterns(token){
+    const headers = new HttpHeaders().set('Authorization', token);
+    return this.http.get('http://localhost:8080/api/intern/get/list', {headers, responseType: 'text'});
+  }
+  public getPersons(token){
+    const headers = new HttpHeaders().set('Authorization', token);
+    return this.http.get('http://localhost:8080/api/person/get/list', {headers, responseType: 'text'});
+  }
+
+
 }

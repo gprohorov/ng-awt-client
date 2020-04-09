@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {JwtClientService} from '../service/jwt-client.service';
 import {HttpResponse} from '@angular/common/http';
 import {subscribeOn} from 'rxjs/operators';
+import {Doctor} from '../model/doctor';
 
 @Component({
   selector: 'app-security',
@@ -9,18 +10,18 @@ import {subscribeOn} from 'rxjs/operators';
   styleUrls: ['./security.component.css']
 })
 export class SecurityComponent implements OnInit {
+  /*
+    authRequest: any = {
+      username: 'intern',
+      password: 'intern'   };
+  */
+    authRequest: any = {
+      username: 'admin',
+      password: 'admin'
+    };
 
-  authRequest: any = {
-    username: 'intern',
-    password: 'intern'
-  };
-/*
-  authRequest: any = {
-    username: 'admin',
-    password: 'admin'
-  };
-*/
   showButton = false;
+  showDoctors = false;
 
   accessToken: string;
   rezult = 'DENIED';
@@ -47,11 +48,28 @@ export class SecurityComponent implements OnInit {
     {this.rezult = data;
      console.log(this.rezult);
      this.showButton = true;
+     this.showDoctors = true;
     } );
   }
 
 
   public onClick() {
     this.getWelcome(this.accessToken);
+  }
+
+
+  getDoctors() {
+    const doctors = this.service.getDoctors(this.accessToken);
+    return doctors.subscribe(data => {console.log(data); } );
+  }
+
+  getInterns() {
+    const interns = this.service.getInterns(this.accessToken);
+    return interns.subscribe(data => {console.log(data); } );
+  }
+
+  getPersons() {
+    const persons = this.service.getPersons(this.accessToken);
+    return persons.subscribe(data => {console.log(data); } );
   }
 }
