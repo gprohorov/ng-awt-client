@@ -6,23 +6,20 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 })
 export class JwtClientService {
 
+  accessToken: string;
+
   constructor(private http: HttpClient) {
+  }
 
-
-
+  get getAccessToken() {
+    return this.accessToken;
+  }
+  set setAccessToken(token: string) {
+    this.accessToken = token;
   }
 
   public generateToken(request){
-    //   const httpOptions: { headers; observe; } = {
-    //     headers: new HttpHeaders({
-    //     'Authorization':  'application/json'
-    //   }),
-    //   observe: 'response'
-    //  };
-    //   return this.http.post('http://localhost:8080/login', request, httpOptions)
     return this.http.post('http://localhost:8080/login', request, {observe : 'response'})
-  //  return this.http.post('http://localhost:8080/login', request, {responseType: 'text' as 'json'})
-
       ;
   }
 
